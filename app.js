@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const userRouter = require("./routes/user.routes")
 
 
 
@@ -14,6 +15,8 @@ app.get("/",(req,res)=>{
         })
     })
 })
+// base
+app.use("/auth/api/v1/",userRouter)
 
 
 
@@ -27,7 +30,7 @@ mongoose
     console.log("DB Connected successfully");
     
     app.listen(4200, () => {
-      console.log("Listening on port 4000....");
+      console.log("Listening on port 4200....");
     });
   })
   .catch((error) => {
