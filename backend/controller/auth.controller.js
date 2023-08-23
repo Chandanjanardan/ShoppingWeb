@@ -6,12 +6,18 @@ const catchAsync = require("../error/error.controller")
 const userModel = require("../models/user.model")
 const secret = process.env.JWT_SECRET;
 
+
+
 const createUser = catchAsync(async (req, res,next) => {
    
     const { username, phone, password } = req.body;
     const token =jwt.sign({username,phone},secret,{
         expiresIn:"12h"
     })
+    const cookieOptions = {
+        expires: new Date(Date.now() + 90 * 2 * 24 * 60 * 60 * 1000),
+        httpOnly: true,
+    }
     const encodePass = await bcrypt.hash(password, 10);
     console.log(username,phone,password)
     const userObj = new userModel({
@@ -32,7 +38,7 @@ const createUser = catchAsync(async (req, res,next) => {
     }else{
     const addUser = await userModel(userObj).save();
     console.log(addUser);
-    res.status(200).json({
+    res.status(200).cookie("jwt",token,cookieOptions).json({
       status:"success",
       token,
       data:{
@@ -45,6 +51,7 @@ const createUser = catchAsync(async (req, res,next) => {
 
 const login=async(req,res)=>{
     const {username,password}= req.body
+    // console.log(req.headers)
     try {
         
         
@@ -60,13 +67,20 @@ const login=async(req,res)=>{
     // console.log(await bcrypt.compare(password,data.password))
     
     if(data && (await bcrypt.compare(password,data.password))){
-        const token =jwt.sign({data},secret,{
+        res
+        const token =jwt.sign({data:data},secret,{
             expiresIn:"12h"})
+            const cookieOptions = {
+                expires: new Date(Date.now() + 90 * 2 * 24 * 60 * 60 * 1000),
+                httpOnly: true,
+            }
        
-        res.status(200).json({
+            res.status(200).cookie("jwt",token,cookieOptions).json({
             status:"success",
-            token
-        
+            token,
+            data:{
+                data
+            }        
     })
     }else{
         res.status(400).json({

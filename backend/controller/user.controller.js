@@ -7,42 +7,15 @@ const userModel = require("../models/user.model")
 // registration
 
 
-// const createUser = catchAsync(async (req, res,next) => {
-   
-//       const { username, phone, password } = req.body;
-//       const encodePass = await bcrypt.hash(password, 10);
-//       console.log(username,phone,password)
-//       const userObj = new userModel({
-//         username: username,
-//         phone: phone,
-//         password: encodePass,
-//       });
-//       const usernameCheck= await userModel.findOne({username})
-//       if(usernameCheck){
-//         return res.status(302).json({
-//             status:"found",
-//             msg:{
-//                 msg:`${username} already have an account`
-//             }
-//         })
-//       }else{
-//       const addUser = await userModel(userObj).save();
-//       console.log(addUser);
-//       res.status(200).json({
-//         status:"success",
-//         data:{
-//         userAdded: `${addUser} is registed successfully`
-//         }
-//       })}
-    
-//   })
 
 // getAllUser
 const getAllUser = async (req, res) => {
+    const {authorization}=req.header
+    console.log(authorization)
     try {
         
      const allUser= await userModel.find({})
-     console.log(allUser)
+    
       res.status(200).json({
         status:"success",
         results:userModel.length,
