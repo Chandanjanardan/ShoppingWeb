@@ -5,12 +5,12 @@ const secret = process.env.JWT_SECRET
 const protect = async(req,res,next)=>{
     const {authorization} = req.headers
     // const cookie= req.headers.cookie.split("=")[1]
-    console.log(authorization)
+    // console.log(authorization)
     let token;
     if 
     (req.headers.authorization.startsWith("Bearer") || req.headers.authorization ){
         token = req.headers.authorization.split(" ")[1]
-        console.log(token)
+      
         // const decode = await promisify(jwt.verify)(token,secret)
         // console.log(decode)
     }
