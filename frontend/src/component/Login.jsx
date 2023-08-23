@@ -1,7 +1,38 @@
-import React from "react"
+import React, { useRef } from "react"
+import { useEffect } from "react"
+import { useCookies } from 'react-cookie';
+
+import axios from "axios"
+import { Navigate } from "react-router-dom";
+import Product from "./Product";
 
 
 function Login() {
+  const [cookies, setCookie, removeCookie] = useCookies("jwt");
+  const username = useRef("null");
+  const password = useRef("null");
+
+  async function sendResponse(e) 
+
+  { e.preventDefault()
+    const response = await axios.post("http://localhost:4200/auth/api/v1/login-user", {
+      username: username.current.value,
+      password: password.current.value,
+
+      
+     
+      
+    });
+    setCookie("jwt", response.data.token, {expires:new Date(Date.now() + 90 * 2 * 24 * 60 * 60 * 1000)});
+            sessionStorage.setItem("jwt", response.data.token);
+ 
+    console.log((response.data.status));
+    console.log(username.current.value, password.current.value);
+    let success=response.data.status
+    if(response.data.status===success){
+    window.location.href="http://localhost:3000/product";}
+  }
+    
     return (
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -23,6 +54,7 @@ function Login() {
               </label>
               <div className="mt-2">
                 <input
+                ref={username}
                   id="username"
                   name="username"
                   type="text"
@@ -42,6 +74,7 @@ function Login() {
               </div>
               <div className="mt-2">
                 <input
+                ref={password}
                   id="password"
                   name="password"
                   type="password"
@@ -54,9 +87,9 @@ function Login() {
 
             <div>
               <button
-                type="submit"
+                
                 className="flex w-full justify-center rounded-md bg-orange-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
+                  onClick={sendResponse} >
                 Sign in
               </button>
             </div>
@@ -64,7 +97,7 @@ function Login() {
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Not a member?{' '}
-            <a href="#" className="font-semibold leading-6 text-orange-600 hover:text-orange-500">
+            <a href="/add-user" className="font-semibold leading-6 text-orange-600 hover:text-orange-500">
               Register
             </a>
           </p>

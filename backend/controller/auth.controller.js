@@ -51,7 +51,8 @@ const createUser = catchAsync(async (req, res,next) => {
 
 const login=async(req,res)=>{
     const {username,password}= req.body
-    // console.log(req.headers)
+    console.log(req.body)
+    console.log(username,password)
     try {
         
         
@@ -67,12 +68,12 @@ const login=async(req,res)=>{
     // console.log(await bcrypt.compare(password,data.password))
     
     if(data && (await bcrypt.compare(password,data.password))){
-        res
+        
         const token =jwt.sign({data:data},secret,{
             expiresIn:"12h"})
             const cookieOptions = {
                 expires: new Date(Date.now() + 90 * 2 * 24 * 60 * 60 * 1000),
-                httpOnly: true,
+                
             }
        
             res.status(200).cookie("jwt",token,cookieOptions).json({
