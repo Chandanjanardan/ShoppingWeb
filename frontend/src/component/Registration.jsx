@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
 import axios from "axios"
 
@@ -7,6 +7,7 @@ function Registration(){
     const username = useRef("null");
     const phone=useRef("null")
   const password = useRef("null");
+  const navigate=useNavigate()
 
   async function sendResponse(e) {
 
@@ -20,7 +21,10 @@ function Registration(){
      
       
     })
-    console.log(response.data.status)
+    let success=response.data.status
+    if(response.data.status===success){
+      navigate("/login-user", { replace: true })
+  }
 }
     
 

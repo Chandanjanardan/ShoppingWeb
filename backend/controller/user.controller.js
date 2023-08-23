@@ -52,47 +52,52 @@ const getUser= async(req,res)=>{
     }
 }
 
-// login
-// const userLogin = async (req, res) => {
-//     const { username, password } = req.body;
-    
-//     try {
-//       const data = await userModel.findOne({ username });
-//       // console.log(data)
-  
-//       if (data) {
-//         if (await bcrypt.compare(password, data.password)) {
-          
-//           const token = jwt.sign({ data }, process.env.JWT_TOKEN, {
-//             expiresIn: "12h",
-//           });
-//        return res.json({
-//             message: `${data.username} logged in successfully`,
-//             token: token,
-//             username: data.username,
-//             role: data.role,
-//           });
-//         }
-//         return res.json({
-//           message: `Incorrect password`,
-//         });
-//       }
-//       return res.json({
-//         message: "User doesn't exist or Incorrect email",
-//       });
-//     } catch (error) {
-//       console.log(error);
-//       return res.send("SOMETHING WENT WRONG !");
-//     }
-//   };
-  
+const allProduct=async(req,res)=>{
+  return  res.status(200).json({
+    data:[
 
+        {
+          id: 1,
+          name: 'Earthen Bottle',
+          href: '#',
+          price: '$48',
+          imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg',
+          imageAlt: 'Tall slender porcelain bottle with natural clay textured body and cork stopper.',
+        },
+        {
+          id: 2,
+          name: 'Nomad Tumbler',
+          href: '#',
+          price: '$35',
+          imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg',
+          imageAlt: 'Olive drab green insulated bottle with flared screw lid and flat top.',
+        },
+        {
+          id: 3,
+          name: 'Focus Paper Refill',
+          href: '#',
+          price: '$89',
+          imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg',
+          imageAlt: 'Person using a pen to cross a task off a productivity paper card.',
+        },
+        {
+          id: 4,
+          name: 'Machined Mechanical Pencil',
+          href: '#',
+          price: '$35',
+          imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-04.jpg',
+          imageAlt: 'Hand holding black machined steel mechanical pencil with brass tip and top.',
+        }]
+    
+        
+    })
+}
 
 
 
 module.exports = {
  
   getAllUser,
-  getUser
+  getUser,allProduct
 
 };

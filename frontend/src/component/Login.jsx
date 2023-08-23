@@ -3,7 +3,7 @@ import { useEffect } from "react"
 import { useCookies } from 'react-cookie';
 
 import axios from "axios"
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import Product from "./Product";
 
 
@@ -11,6 +11,7 @@ function Login() {
   const [cookies, setCookie, removeCookie] = useCookies("jwt");
   const username = useRef("null");
   const password = useRef("null");
+  const navigate=useNavigate()
 
   async function sendResponse(e) 
 
@@ -25,12 +26,13 @@ function Login() {
     });
     setCookie("jwt", response.data.token, {expires:new Date(Date.now() + 90 * 2 * 24 * 60 * 60 * 1000)});
             sessionStorage.setItem("jwt", response.data.token);
+            localStorage.setItem("jwt",response.data.token)
  
     console.log((response.data.status));
     console.log(username.current.value, password.current.value);
     let success=response.data.status
     if(response.data.status===success){
-    window.location.href="http://localhost:3000/product";}
+      navigate("/product", { replace: true });}
   }
     
     return (
