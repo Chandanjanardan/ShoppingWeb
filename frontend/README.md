@@ -4,5 +4,8 @@
 ###  Mongodb atlas is used . For Mongodb compass check the connection string
 ###  user login -- /login-user
 ###  user register---/add-user
+### JWT_SECRET=<in env file>
+
+
 
 
