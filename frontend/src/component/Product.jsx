@@ -1,14 +1,27 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
+import Cart from "./Cart"
 
 import Landing from './Landing';
 import "./product.css"
 
+
 function Product() {
+  const cart=[]
+  
   const [cookies] = useCookies('jwt');
   const data = useRef([]);
   const [products, setProducts] = useState([]);
+  function addtocart(e){
+    alert("product added")
+    cart.push(e)
+    console.log(e)
+    localStorage.setItem("cart",[cart])
+    // localStorage.setItem('cart', JSON.stringify(cart));
+    console.log(localStorage.setItem("cart",cart))
+    console.log(cart)
+  }
 
   useEffect(() => {
     async function productDetail() {
@@ -26,6 +39,7 @@ function Product() {
         console.error('Error:', error);
       }
     }
+    
 
     productDetail();
   }, []);
@@ -33,6 +47,7 @@ function Product() {
     
   return (
     <>
+   
     
  <Landing/>
 
@@ -56,7 +71,7 @@ function Product() {
          <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
          <div className='flex justify-between'>
          <p className="mt-1 text-lg font-medium text-gray-900">{product.price}</p>
-         <button className="text-black-700 bg-orange-300 hover:bg-orange-700 hover:text-orange
+         <button onClick={()=>addtocart(product.name)}className="text-black-700 bg-orange-300 hover:bg-orange-700 hover:text-orange
                         rounded-md px-3 py-2 text-sm font-medium">Add to Cart</button>
          </div>
        </a>
@@ -67,6 +82,7 @@ function Product() {
  </div>
 
 </div>
+
 </>
   )
 }

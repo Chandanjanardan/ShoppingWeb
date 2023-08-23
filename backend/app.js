@@ -32,7 +32,8 @@ app.use("/auth/api/v1/",userRouter)
 
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/voosh", {
+
+  .connect("mongodb+srv://00chandan95:12345@cluster0.hssdyta.mongodb.net/voosh", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

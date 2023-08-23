@@ -8,7 +8,7 @@ const protect = async(req,res,next)=>{
     // console.log(authorization)
     let token;
     if 
-    (req.headers.authorization.startsWith("Bearer") || req.headers.authorization ){
+    (req.headers.authorization.startsWith("Bearer") ||  req.headers.authorization ){
         token = req.headers.authorization.split(" ")[1]
       
         // const decode = await promisify(jwt.verify)(token,secret)
