@@ -16,11 +16,10 @@ function Product() {
   function addtocart(e){
     alert("product added")
     cart.push(e)
-    console.log(e)
+    
     localStorage.setItem("cart",[cart])
     // localStorage.setItem('cart', JSON.stringify(cart));
-    console.log(localStorage.setItem("cart",cart))
-    console.log(cart)
+    
   }
 
   useEffect(() => {

@@ -48,7 +48,7 @@ pro.map((product)=>{
     }
   })
 })
-console.log(products)
+
 
 
 export default function Cart() {

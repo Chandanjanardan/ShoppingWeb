@@ -7,7 +7,7 @@ const UserSchema = new Schema({
         type: String,
         required: [true,'all fields are required'],
         trim: true,
-        unique: true,
+       
     },
     phone: {
         type: Number,
